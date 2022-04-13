@@ -1,0 +1,72 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  #set($mapperClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('mapperJava').getParams().get(
+    'package') + '.' + $ctx.model.name + 'Mapper')
+  #set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+    'package') + '.' + $ctx.model.name)
+
+<mapper namespace="${mapperClass}">
+    <resultMap type="${entityClass}" id="resultMap">
+      #foreach($field in $ctx.model.dbFields)
+        #if($field.properties.primaryKey)
+            <id column="${ctx.utils.humpToLine($field.name)}" property="$field.name"/>
+        #else
+            <result column="${ctx.utils.humpToLine($field.name)}" property="$field.name"/>
+        #end
+      #end
+    </resultMap>
+
+    <insert id="insert">
+        insert into ${ctx.utils.tableName($ctx.model)} (
+      #foreach($field in $ctx.model.dbFields)
+        ${ctx.utils.humpToLine($field.name)}#if($foreach.hasNext),#end
+
+      #end
+        ) values (
+      #foreach($field in $ctx.model.dbFields)
+          #{$field.name}#if($foreach.hasNext),#end
+
+      #end
+        )
+    </insert>
+
+    <delete id="deleteById">
+        delete from ${ctx.utils.tableName($ctx.model)} where id = #{id}
+    </delete>
+
+    <update id="update">
+        update ${ctx.utils.tableName($ctx.model)}
+        <trim prefix="set" suffixOverrides=",">
+          #foreach($field in $ctx.model.dbFields)
+              <if test="${field.name} != null">
+                ${ctx.utils.humpToLine($field.name)}=#{${field.name}},
+              </if>
+          #end
+            where id = #{id}
+        </trim>
+    </update>
+
+    <select id="selectById" resultMap="resultMap">
+        select * from ${ctx.utils.tableName($ctx.model)} where id=#{id} limit 1
+    </select>
+
+    <select id="findAll" resultMap="resultMap">
+        select * from ${ctx.utils.tableName($ctx.model)}
+    </select>
+
+    <select id="findByCondition" resultMap="resultMap">
+        select * from ${ctx.utils.tableName($ctx.model)}
+        <where>${condition}</where>
+      ${orderBy}
+      ${limit}
+    </select>
+
+    <select id="findOneByCondition" resultMap="resultMap">
+        select * from ${ctx.utils.tableName($ctx.model)}
+        <where>${condition}</where>
+        limit 1
+    </select>
+
+</mapper>

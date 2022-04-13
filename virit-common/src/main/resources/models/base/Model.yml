@@ -1,0 +1,42 @@
+title: 模型
+domain: base
+description: 模型
+features:
+  - BASE
+fields:
+  id:
+    title: ID
+    type: STRING
+    properties:
+      length: 32
+      primaryKey: True
+  name:
+    title: 名称
+    type: STRING
+    properties:
+      length: 32
+  domain:
+    title: 领域
+    type: STRING
+    properties:
+      length: 32
+  schemaData:
+    title: 模型定义
+    type: STRING
+    properties:
+      length: 1024
+  mapperClass:
+    title: mapperClass
+    type: STRING
+    properties:
+      length: 64
+  serviceClass:
+    title: serverClass
+    type: STRING
+    properties:
+      length: 64
+  repoClass:
+    title: repoClass
+    type: STRING
+    properties:
+      length: 64

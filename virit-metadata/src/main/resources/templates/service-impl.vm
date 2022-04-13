@@ -1,0 +1,15 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+#set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+  'package') + '.' + $ctx.model.name)
+#set($superClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('service').getParams().get(
+  'package') + '.' + ${ctx.model.name} + 'Service')
+import org.springframework.stereotype.Service;
+import cn.virit.common.base.BaseService;
+${ctx.utils.imports($entityClass, $superClass)}
+/**
+* ${ctx.model.name}ServiceImpl
+*/
+@Service
+public class ${ctx.model.name}ServiceImpl extends BaseService<$ctx.utils.simpleClassName($entityClass)> implements $ctx.utils.simpleClassName($superClass) {
+}

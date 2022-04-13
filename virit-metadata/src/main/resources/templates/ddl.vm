@@ -1,0 +1,9 @@
+-- $ctx.model.name $ctx.model.title
+#set($tableName = ${ctx.utils.tableName($ctx.model)})
+CREATE TABLE IF NOT EXISTS $tableName (
+
+#foreach($field in $ctx.model.dbFields)
+`${ctx.utils.humpToLine($field.name)}` ${ctx.typeMapper.getDbType($field)}#if($field.properties.primaryKey) PRIMARY KEY#end#if($foreach.hasNext),#end
+
+#end
+);$$$

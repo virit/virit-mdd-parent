@@ -1,0 +1,14 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+#set($superClassName = 'Base' + $ctx.model.name)
+#set($superClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entityBase').getParams().get(
+  'package') + '.' + $superClassName)
+${ctx.utils.imports($superClass)}
+/**
+* ${ctx.model.title}
+*
+* ${ctx.model.description}
+*/
+public class ${ctx.model.name} extends $superClassName {
+
+}

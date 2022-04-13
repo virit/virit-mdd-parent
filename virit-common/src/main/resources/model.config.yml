@@ -1,0 +1,12 @@
+repository: project
+domains:
+  base:
+    models:
+      - _ALL
+    codeLevels:
+      - ENTITY
+      - MAPPER
+      - SERVICE
+      - CONTROLLER
+    syncDb: True
+    basePackage: cn.virit.domain.base

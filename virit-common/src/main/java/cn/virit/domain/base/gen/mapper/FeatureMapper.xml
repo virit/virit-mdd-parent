@@ -1,0 +1,92 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cn.virit.domain.base.gen.mapper.FeatureMapper">
+  <resultMap type="cn.virit.domain.base.entity.Feature" id="resultMap">
+    <id column="id" property="id"/>
+    <result column="created_user_id" property="createdUserId"/>
+    <result column="modified_user_id" property="modifiedUserId"/>
+    <result column="created_time" property="createdTime"/>
+    <result column="modified_time" property="modifiedTime"/>
+    <result column="name" property="name"/>
+    <result column="schema_data" property="schemaData"/>
+  </resultMap>
+
+  <insert id="insert">
+    insert into base_feature (id,
+                              created_user_id,
+                              modified_user_id,
+                              created_time,
+                              modified_time,
+                              name,
+                              schema_data)
+    values (#{id},
+            #{createdUserId},
+            #{modifiedUserId},
+            #{createdTime},
+            #{modifiedTime},
+            #{name},
+            #{schemaData})
+  </insert>
+
+  <delete id="deleteById">
+    delete
+    from base_feature
+    where id = #{id}
+  </delete>
+
+  <update id="update">
+    update base_feature
+    <trim prefix="set" suffixOverrides=",">
+      <if test="id != null">
+        id=#{id},
+      </if>
+      <if test="createdUserId != null">
+        created_user_id=#{createdUserId},
+      </if>
+      <if test="modifiedUserId != null">
+        modified_user_id=#{modifiedUserId},
+      </if>
+      <if test="createdTime != null">
+        created_time=#{createdTime},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time=#{modifiedTime},
+      </if>
+      <if test="name != null">
+        name=#{name},
+      </if>
+      <if test="schemaData != null">
+        schema_data=#{schemaData},
+      </if>
+      where id = #{id}
+    </trim>
+  </update>
+
+  <select id="selectById" resultMap="resultMap">
+    select *
+    from base_feature
+    where id = #{id} limit 1
+  </select>
+
+  <select id="findAll" resultMap="resultMap">
+    select *
+    from base_feature
+  </select>
+
+  <select id="findByCondition" resultMap="resultMap">
+    select * from base_feature
+    <where>${condition}</where>
+    ${orderBy}
+    ${limit}
+  </select>
+
+  <select id="findOneByCondition" resultMap="resultMap">
+    select * from base_feature
+    <where>${condition}</where>
+    limit 1
+  </select>
+
+</mapper>

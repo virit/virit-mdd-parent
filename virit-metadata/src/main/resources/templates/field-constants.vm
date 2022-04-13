@@ -1,0 +1,25 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+/**
+* ${ctx.model.title}
+*/
+public enum ${ctx.model.name}Fields {
+#foreach($field in $ctx.model.fields)
+
+/**
+* ${field.title}
+*/
+  ${ctx.utils.upperCase($field.name)}("$field.name")#if($foreach.hasNext),#else;#end
+
+#end
+
+private String name;
+
+${ctx.model.name}Fields(String name) {
+this.name = name;
+}
+
+public String getName() {
+return name;
+}
+}

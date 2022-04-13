@@ -1,0 +1,15 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+#set($superClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('controller').getParams().get(
+  'package') + '.Base' + ${ctx.model.name} + 'Controller')
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+${ctx.utils.imports($entityClass, $superClass)}
+/**
+* ${ctx.model.name}Controller
+*/
+@RestController
+@RequestMapping("/$ctx.utils.humpToMiddleLine(${ctx.model.domain})/$ctx.utils.humpToMiddleLine(${ctx.model.name})")
+public class ${ctx.model.name}Controller extends $ctx.utils.simpleClassName($superClass) {
+
+}

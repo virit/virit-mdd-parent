@@ -1,0 +1,11 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+import cn.virit.common.base.IService;
+#set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+  'package') + '.' + $ctx.model.name)
+${ctx.utils.imports($entityClass)}
+/**
+* ${ctx.model.name}Service
+*/
+public interface ${ctx.model.name}Service extends IService<$ctx.utils.simpleClassName($entityClass)> {
+}

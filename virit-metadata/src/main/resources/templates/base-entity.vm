@@ -1,0 +1,127 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+#set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+  'package') + '.' + $ctx.model.name)
+#set($fieldsClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get(
+  'fieldConstants').getParams().get('package') + '.' + ${ctx.model.name} + 'Fields')
+${ctx.utils.imports($ctx.model.fields, $ctx.model.children, $fieldsClass, $ctx.model.superTypes, $entityClass)}
+import java.util.List;
+/**
+* ${ctx.model.title}
+*
+* ${ctx.model.description}
+*/
+public abstract class Base${ctx.model.name} implements #foreach($type in $ctx.model.superTypes)${ctx.utils.simpleClassName($type)}#if($foreach.hasNext),#end#end {
+#foreach($field in $ctx.model.fields)
+
+/**
+* ${field.title}
+*/
+protected ${ctx.typeMapper.getSimpleJavaType($field)} ${field.name};
+#end
+#foreach($child in $ctx.model.children)
+
+/**
+* ${child.title}
+*/
+protected List<${ctx.domain.getModel($child.getRefer()).getName()}> ${child.name};
+#end
+#foreach($field in $ctx.model.fields)
+
+public ${ctx.typeMapper.getSimpleJavaType($field)} ${ctx.utils.getterName($field.name)}() {
+return this.${field.name};
+}
+
+public void ${ctx.utils.setterName($field.name)}(${ctx.typeMapper.getSimpleJavaType($field)} ${field.name}) {
+this.${field.name} = ${field.name};
+}
+#end
+#foreach($child in $ctx.model.children)
+
+public List<${ctx.domain.getModel($child.getRefer()).getName()}> ${ctx.utils.getterName($child.name)}() {
+return this.${child.name};
+}
+
+public void ${ctx.utils.setterName($child.name)}(List<${ctx.domain.getModel($child.getRefer()).getName()}> ${child.name}) {
+this.${child.name} = ${child.name};
+}
+#end
+
+@Override
+public String getModelDomain() {
+return "${ctx.model.domain}";
+}
+
+@Override
+public String getModelName() {
+return "${ctx.model.name}";
+}
+
+@Override
+public void set(String fieldName, Object value) {
+#foreach($field in $ctx.model.fields)
+if ("${field.name}".equals(fieldName)) {
+this.${ctx.utils.setterName($field.name)}((${ctx.typeMapper.getSimpleJavaType($field)}) value);
+}
+#end
+}
+
+@Override
+public Object get(String fieldName) {
+#foreach($field in $ctx.model.fields)
+if ("${field.name}".equals(fieldName)) {
+return this.${ctx.utils.getterName($field.name)}();
+}
+#end
+return null;
+}
+
+public void set($ctx.utils.simpleClassName($fieldsClass) field, Object value) {
+this.set(field.getName(), value);
+}
+
+@Override
+public void setChildData(String childName, List<? extends BaseEntity> value) {
+#foreach($child in $ctx.model.children)
+if ("${child.name}".equals(childName)) {
+this.${ctx.utils.setterName($child.name)}((List<${ctx.domain.getModel($child.getRefer()).getName()}>) value);
+}
+#end
+}
+
+@Override
+public List<? extends BaseEntity> getChildData(String childName) {
+#foreach($child in $ctx.model.children)
+if ("${child.name}".equals(childName)) {
+return this.${ctx.utils.getterName($child.name)}();
+}
+#end
+return null;
+}
+
+public static class Builder {
+#foreach($field in $ctx.model.fields)
+
+/**
+* ${field.title}
+*/
+private ${ctx.typeMapper.getSimpleJavaType($field)} ${field.name};
+#end
+#foreach($field in $ctx.model.fields)
+
+public Builder ${field.name}(${ctx.typeMapper.getSimpleJavaType($field)} ${field.name}) {
+this.${field.name} = ${field.name};
+return this;
+}
+#end
+
+public ${ctx.model.name} build() {
+
+${ctx.model.name} entity = new ${ctx.model.name}();
+#foreach($field in $ctx.model.fields)
+entity.${ctx.utils.setterName($field.name)}(${field.name});
+#end
+return entity;
+}
+}
+}

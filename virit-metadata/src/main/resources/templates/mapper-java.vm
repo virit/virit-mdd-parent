@@ -1,0 +1,14 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+#set($mapperClass = 'org.apache.ibatis.annotations.Mapper')
+#set($superClass = 'cn.virit.common.base.BaseMapper')
+#set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+  'package') + '.' + $ctx.model.name)
+${ctx.utils.imports($mapperClass, $entityClass, $superClass)}
+/**
+* ${ctx.model.title}Mapper
+*/
+@Mapper
+public interface ${ctx.model.name}Mapper extends $ctx.utils.simpleClassName($superClass)<$ctx.utils.simpleClassName($entityClass)> {
+
+}

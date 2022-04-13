@@ -1,0 +1,119 @@
+templates:
+  ddl:
+    template: templates/ddl.vm
+    target: "${ctx.resourceDir}/gen/init/ddl.sql"
+    cover: True
+    codeLevel: DDL
+  syncDbStructure:
+    template: templates/sync-db-structure.vm
+    target: "${ctx.resourceDir}/gen/init/sync-db-structure.sql"
+    cover: True
+    codeLevel: DDL
+  model-data:
+    template: templates/model-data.vm
+    target: "${ctx.resourceDir}/gen/init/models.sql"
+    cover: True
+  entityBase:
+    template: templates/base-entity.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/Base${ctx.model.name}.java"
+    params:
+      dir: gen/entity
+      package: gen.entity
+    cover: True
+    codeLevel: ENTITY
+  entity:
+    template: templates/entity.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}.java"
+    params:
+      dir: entity
+      package: entity
+    cover: False
+    codeLevel: ENTITY
+  fieldConstants:
+    template: templates/field-constants.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Fields.java"
+    params:
+      dir: gen/constants
+      package: gen.constants
+    cover: True
+    codeLevel: FIELD_CONSTANTS
+  columnConstants:
+    template: templates/column-constants.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Columns.java"
+    params:
+      dir: gen/constants
+      package: gen.constants
+    cover: True
+    codeLevel: COLUMN_CONSTANTS
+  childrenConstants:
+    template: templates/children-constants.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Children.java"
+    params:
+      dir: gen/constants
+      package: gen.constants
+    cover: True
+    codeLevel: FIELD_CONSTANTS
+  mapperJava:
+    template: templates/mapper-java.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Mapper.java"
+    params:
+      dir: gen/mapper
+      package: gen.mapper
+    cover: True
+    codeLevel: MAPPER
+  mapper:
+    template: templates/mapper.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Mapper.xml"
+    params:
+      dir: gen/mapper
+      package: gen.mapper
+    cover: True
+    codeLevel: MAPPER
+  repo:
+    template: templates/repo.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Repository.java"
+    params:
+      dir: repo
+      package: repo
+    cover: False
+    codeLevel: REPO
+  repoImpl:
+    template: templates/repo-impl.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}RepositoryImpl.java"
+    params:
+      dir: repo/impl
+      package: repo.impl
+    cover: False
+    codeLevel: REPO
+  service:
+    template: templates/service.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Service.java"
+    params:
+      dir: service
+      package: service
+    cover: False
+    codeLevel: SERVICE
+  serviceImpl:
+    template: templates/service-impl.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}ServiceImpl.java"
+    params:
+      dir: service/impl
+      package: service.impl
+    cover: False
+    codeLevel: SERVICE
+  controller:
+    template: templates/controller.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/Base${ctx.model.name}Controller.java"
+    params:
+      dir: gen/controller
+      package: gen.controller
+    cover: True
+    codeLevel: CONTROLLER
+  controllerImpl:
+    template: templates/controller-impl.vm
+    target: "${ctx.domain.basePackageDir}/${ctx.genConfig.params.dir}/${ctx.model.name}Controller.java"
+    params:
+      dir: controller
+      package: controller
+    cover: False
+    codeLevel: CONTROLLER

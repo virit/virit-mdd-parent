@@ -1,0 +1,43 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import cn.virit.common.base.BaseController;
+#set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+  'package') + '.' + $ctx.model.name)
+${ctx.utils.imports($entityClass)}
+/**
+* Base${ctx.model.name}Controller
+*/
+public abstract class Base${ctx.model.name}Controller extends BaseController<$ctx.utils.simpleClassName($entityClass)> {
+
+@Override
+@PostMapping
+public String add(@RequestBody @Valid $ctx.utils.simpleClassName($entityClass) entity, BindingResult result) {
+return super.add(entity, result);
+}
+
+@Override
+@PutMapping
+public void update(@RequestBody @Valid $ctx.utils.simpleClassName($entityClass) entity, BindingResult result) {
+super.update(entity, result);
+}
+
+@Override
+@DeleteMapping("/{id}")
+public void delete(@PathVariable("id") String id) {
+super.delete(id);
+}
+
+@Override
+@GetMapping("/{id}")
+public $ctx.utils.simpleClassName($entityClass) get(@PathVariable("id") String id) {
+return super.get(id);
+}
+}

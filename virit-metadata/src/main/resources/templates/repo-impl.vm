@@ -1,0 +1,15 @@
+package ${ctx.domain.basePackage}.${ctx.genConfig.params.package};
+
+#set($entityClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('entity').getParams().get(
+  'package') + '.' + $ctx.model.name)
+#set($superClass = $ctx.domain.basePackage + '.' + $ctx.genConfigs.getTemplates().get('repo').getParams().get(
+  'package') + '.' + ${ctx.model.name} + 'Repository')
+import org.springframework.stereotype.Repository;
+import cn.virit.common.base.BaseRepository;
+${ctx.utils.imports($entityClass, $superClass)}
+/**
+* ${ctx.model.name}RepositoryImpl
+*/
+@Repository
+public class ${ctx.model.name}RepositoryImpl extends BaseRepository<$ctx.utils.simpleClassName($entityClass)> implements $ctx.utils.simpleClassName($superClass) {
+}

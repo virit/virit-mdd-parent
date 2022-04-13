@@ -1,0 +1,18 @@
+-- $ctx.model.name $ctx.model.title
+#set($tableName = ${ctx.utils.tableName($ctx.model)})
+CREATE PROCEDURE sync_structure_$tableName()
+BEGIN
+#foreach($field in $ctx.model.dbFields)
+  #set($columnName = ${ctx.utils.humpToLine($field.name)})
+  #if(${field.properties.primaryKey})#else
+  IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName' AND COLUMN_NAME = '$columnName')
+  THEN
+  ALTER TABLE $tableName ADD COLUMN `${ctx.utils.humpToLine($field.name)}` ${ctx.typeMapper.getDbType($field)}#if($field.properties.primaryKey) PRIMARY KEY#end;
+  ELSE
+  ALTER TABLE $tableName MODIFY COLUMN `${ctx.utils.humpToLine($field.name)}` ${ctx.typeMapper.getDbType($field)}#if($field.properties.primaryKey) PRIMARY KEY#end;
+  END IF;
+  #end
+#end
+END;$$$
+CALL sync_structure_$tableName();$$$
+DROP PROCEDURE sync_structure_$tableName;$$$

@@ -1,0 +1,17 @@
+title: 特性
+domain: base
+description: 特性
+features:
+  - BASE
+fields:
+  name:
+    title: 名称
+    type: STRING
+    properties:
+      length: 32
+  schemaData:
+    title: 特性定义
+    type: STRING
+    properties:
+      length: 1024
+    

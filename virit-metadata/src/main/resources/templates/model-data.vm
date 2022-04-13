@@ -1,0 +1,5 @@
+DELETE FROM base_model WHERE id = '${ctx.model.domain}.${ctx.model.name}';$$$
+INSERT INTO base_model (id, domain, name, schema_data, mapper_class, repo_class, service_class) VALUES ('${ctx.model.domain}.${ctx.model.name}', '${ctx.model.domain}', '${ctx.model.name}', '$ctx.utils.dumpYaml($ctx.model)', '${ctx.domain.basePackage}.${ctx.genConfigs.getTemplates().get(
+  "mapperJava").params.package}.${ctx.model.name}Mapper', '${ctx.domain.basePackage}.${ctx.genConfigs.getTemplates().get(
+  "repo").params.package}.${ctx.model.name}Repository', '${ctx.domain.basePackage}.${ctx.genConfigs.getTemplates().get(
+  "service").params.package}.${ctx.model.name}Service');$$$

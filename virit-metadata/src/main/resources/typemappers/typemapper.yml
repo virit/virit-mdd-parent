@@ -1,0 +1,16 @@
+types:
+  STRING:
+    javaType: String
+    dbType: "#if($field.properties.length>512)TEXT#{else}VARCHAR(${field.properties.length})#end"
+  DATE:
+    javaType: java.util.Date
+    dbType: DATETIME
+  INTEGER:
+    javaType: Integer
+    dbType: INT
+  DECIMAL:
+    javaType: java.math.BigDecimal
+    dbType: DECIMAL
+  OBJECT:
+    javaType: "${ctx.domain.basePackage}.${ctx.genConfigs.getTemplates().get('entity').params.package}.${field.properties.objectType}"
+    dbType: VARCHAR(64)

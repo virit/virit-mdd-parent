@@ -1,0 +1,116 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cn.virit.domain.base.gen.mapper.ModelMapper">
+  <resultMap type="cn.virit.domain.base.entity.Model" id="resultMap">
+    <id column="id" property="id"/>
+    <result column="created_user_id" property="createdUserId"/>
+    <result column="modified_user_id" property="modifiedUserId"/>
+    <result column="created_time" property="createdTime"/>
+    <result column="modified_time" property="modifiedTime"/>
+    <result column="name" property="name"/>
+    <result column="domain" property="domain"/>
+    <result column="schema_data" property="schemaData"/>
+    <result column="mapper_class" property="mapperClass"/>
+    <result column="service_class" property="serviceClass"/>
+    <result column="repo_class" property="repoClass"/>
+  </resultMap>
+
+  <insert id="insert">
+    insert into base_model (id,
+                            created_user_id,
+                            modified_user_id,
+                            created_time,
+                            modified_time,
+                            name,
+                            domain,
+                            schema_data,
+                            mapper_class,
+                            service_class,
+                            repo_class)
+    values (#{id},
+            #{createdUserId},
+            #{modifiedUserId},
+            #{createdTime},
+            #{modifiedTime},
+            #{name},
+            #{domain},
+            #{schemaData},
+            #{mapperClass},
+            #{serviceClass},
+            #{repoClass})
+  </insert>
+
+  <delete id="deleteById">
+    delete
+    from base_model
+    where id = #{id}
+  </delete>
+
+  <update id="update">
+    update base_model
+    <trim prefix="set" suffixOverrides=",">
+      <if test="id != null">
+        id=#{id},
+      </if>
+      <if test="createdUserId != null">
+        created_user_id=#{createdUserId},
+      </if>
+      <if test="modifiedUserId != null">
+        modified_user_id=#{modifiedUserId},
+      </if>
+      <if test="createdTime != null">
+        created_time=#{createdTime},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time=#{modifiedTime},
+      </if>
+      <if test="name != null">
+        name=#{name},
+      </if>
+      <if test="domain != null">
+        domain=#{domain},
+      </if>
+      <if test="schemaData != null">
+        schema_data=#{schemaData},
+      </if>
+      <if test="mapperClass != null">
+        mapper_class=#{mapperClass},
+      </if>
+      <if test="serviceClass != null">
+        service_class=#{serviceClass},
+      </if>
+      <if test="repoClass != null">
+        repo_class=#{repoClass},
+      </if>
+      where id = #{id}
+    </trim>
+  </update>
+
+  <select id="selectById" resultMap="resultMap">
+    select *
+    from base_model
+    where id = #{id} limit 1
+  </select>
+
+  <select id="findAll" resultMap="resultMap">
+    select *
+    from base_model
+  </select>
+
+  <select id="findByCondition" resultMap="resultMap">
+    select * from base_model
+    <where>${condition}</where>
+    ${orderBy}
+    ${limit}
+  </select>
+
+  <select id="findOneByCondition" resultMap="resultMap">
+    select * from base_model
+    <where>${condition}</where>
+    limit 1
+  </select>
+
+</mapper>

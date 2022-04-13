@@ -1,0 +1,142 @@
+-- Feature 特性
+CREATE PROCEDURE sync_structure_base_feature()
+BEGIN
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_feature' AND COLUMN_NAME = 'created_user_id')
+    THEN
+ALTER TABLE base_feature
+    ADD COLUMN `created_user_id` VARCHAR(32);
+ELSE
+ALTER TABLE base_feature MODIFY COLUMN `created_user_id` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_feature' AND COLUMN_NAME = 'modified_user_id')
+    THEN
+ALTER TABLE base_feature
+    ADD COLUMN `modified_user_id` VARCHAR(32);
+ELSE
+ALTER TABLE base_feature MODIFY COLUMN `modified_user_id` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_feature' AND COLUMN_NAME = 'created_time')
+    THEN
+ALTER TABLE base_feature
+    ADD COLUMN `created_time` DATETIME;
+ELSE
+ALTER TABLE base_feature MODIFY COLUMN `created_time` DATETIME;
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_feature' AND COLUMN_NAME = 'modified_time')
+    THEN
+ALTER TABLE base_feature
+    ADD COLUMN `modified_time` DATETIME;
+ELSE
+ALTER TABLE base_feature MODIFY COLUMN `modified_time` DATETIME;
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_feature' AND COLUMN_NAME = 'name')
+    THEN
+ALTER TABLE base_feature
+    ADD COLUMN `name` VARCHAR(32);
+ELSE
+ALTER TABLE base_feature MODIFY COLUMN `name` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_feature' AND COLUMN_NAME = 'schema_data')
+    THEN
+ALTER TABLE base_feature
+    ADD COLUMN `schema_data` TEXT;
+ELSE
+ALTER TABLE base_feature MODIFY COLUMN `schema_data` TEXT;
+END IF;
+END;$$$
+CALL sync_structure_base_feature();$$$
+DROP PROCEDURE sync_structure_base_feature;
+$$$
+-- Model 模型
+CREATE PROCEDURE sync_structure_base_model()
+BEGIN
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'created_user_id')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `created_user_id` VARCHAR(32);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `created_user_id` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'modified_user_id')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `modified_user_id` VARCHAR(32);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `modified_user_id` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'created_time')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `created_time` DATETIME;
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `created_time` DATETIME;
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'modified_time')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `modified_time` DATETIME;
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `modified_time` DATETIME;
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'name')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `name` VARCHAR(32);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `name` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'domain')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `domain` VARCHAR(32);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `domain` VARCHAR (32);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'schema_data')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `schema_data` TEXT;
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `schema_data` TEXT;
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'mapper_class')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `mapper_class` VARCHAR(64);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `mapper_class` VARCHAR (64);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'service_class')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `service_class` VARCHAR(64);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `service_class` VARCHAR (64);
+END IF;
+  IF
+NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'base_model' AND COLUMN_NAME = 'repo_class')
+    THEN
+ALTER TABLE base_model
+    ADD COLUMN `repo_class` VARCHAR(64);
+ELSE
+ALTER TABLE base_model MODIFY COLUMN `repo_class` VARCHAR (64);
+END IF;
+END;$$$
+CALL sync_structure_base_model();$$$
+DROP PROCEDURE sync_structure_base_model;
+$$$

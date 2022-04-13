@@ -1,0 +1,48 @@
+type Query {
+#foreach($model in $models)
+  ${model.name}(filter: Filter) : [$model.name]
+#end
+}
+
+scalar ConditionValue
+
+input FilterItem {
+logical: String
+field: String
+operator: String
+values: [ConditionValue]
+items: [FilterItem]
+}
+
+input Filter {
+items: [FilterItem]
+sorts: [Sort]
+page: Page
+}
+
+input Page {
+index: Int
+size: Int
+}
+
+enum SortType {
+ASC
+DESC
+}
+
+input Sort {
+field: String
+type: SortType
+}
+
+#foreach($model in $models)
+type $model.name {
+  #foreach($field in $model.fields)
+    $field.name : ${provider.mapType($field)}
+  #end
+  #foreach($child in $model.children)
+    ${child.name}(filter: Filter) : [${child.refer}]
+  #end
+}
+
+#end
